@@ -5,7 +5,8 @@ CREATE DATABASE "FLIGHT"
 CREATE TABLE userdata (
                           id BIGSERIAL PRIMARY KEY,
                           name VARCHAR(255),
-                          email VARCHAR(255)
+                          email VARCHAR(255),
+                          password VARCHAR(255)
 );
 
 -- 2. Tabelle für Flüge erstellen

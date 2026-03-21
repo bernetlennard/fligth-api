@@ -64,3 +64,35 @@ Content-Type: application/json
   "userId": 1,
   "flightId": 999
 }
+
+### ==================================================================
+### EPIC 5: SECURITY & JWT TEST
+### ==================================================================
+
+### 1. Felix loggt sich ein und wir speichern den Token in einer Variable
+# @name loginRequest
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "felix.huber@example.com",
+  "password": "123456"
+}
+> {%
+    // Hier speichert IntelliJ den Token aus der Response
+    client.global.set("auth_token", response.body.token);
+%}
+
+### 2. Felix bucht einen Flug (geschützt durch Token)
+POST http://localhost:8080/bookings
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "flightId": 1
+  // Die userId müssen wir nicht mehr mitsenden, das Backend weiß dank Token Bescheid!
+}
+
+### 3. Felix holt seine Buchungshistorie ab (geschützt durch Token)
+GET http://localhost:8080/bookings
+Authorization: Bearer {{auth_token}}
