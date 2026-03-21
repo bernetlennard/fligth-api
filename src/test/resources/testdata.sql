@@ -1,8 +1,8 @@
 -- 1. Tabellen leeren und IDs zurücksetzen (Start mit leerer DB)
-TRUNCATE TABLE booking, flight, "user" RESTART IDENTITY CASCADE;
+TRUNCATE TABLE booking, flight, userdata RESTART IDENTITY CASCADE;
 
 -- 2. Test-User "Felix Huber" anlegen (bekommt automatisch ID 1)
-INSERT INTO "user" (name, email) VALUES ('Felix Huber', 'felix.huber@example.com');
+INSERT INTO userdata (name, email) VALUES ('Felix Huber', 'felix.huber@example.com');
 
 -- 3. Test-Flüge anlegen (bekommen automatisch ID 1 und 2)
 INSERT INTO flight (departure_location, arrival_location, departure_date, departure_time, airline, price, available_tickets)

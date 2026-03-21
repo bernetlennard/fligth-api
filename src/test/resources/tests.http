@@ -1,0 +1,66 @@
+### Globale Variable für den lokalen Server
+@host = http://localhost:8080
+
+# ==================================================================
+# EPIC 1: FLUGÜBERSICHT & FILTER [cite: 36]
+# ==================================================================
+
+### Test 1.1: Alle Flüge abrufen (sollte 2 Flüge zurückgeben)
+GET {{host}}/flights
+Accept: application/json
+
+### Test 1.2: Flüge nach Zielort filtern (London)
+GET {{host}}/flights?arrivalLocation=London
+Accept: application/json
+
+### Test 1.3: Flüge nach Preis filtern (Maximal 200.00 - sollte nur Berlin finden)
+GET {{host}}/flights?maxPrice=200
+Accept: application/json
+
+
+# ==================================================================
+# EPIC 2: BUCHUNGSSYSTEM [cite: 55]
+# ==================================================================
+
+### Test 2.1: Flug buchen (Felix bucht den Flug nach London)
+# Erwartet: HTTP 200 OK und das Buchungsobjekt als JSON
+POST {{host}}/bookings
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "flightId": 1
+}
+
+### Test 2.2: Den fast ausgebuchten Flug nach Berlin buchen (Tickets = 2)
+POST {{host}}/bookings
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "flightId": 2
+}
+
+### ==================================================================
+# EPIC 3: BUCHUNGSHISTORIE [cite: 74]
+# ==================================================================
+
+### Test 3.1: Buchungshistorie von Felix (User ID 1) abrufen
+# Erwartet: Eine Liste mit den zuvor getätigten Buchungen
+GET {{host}}/bookings/1
+Accept: application/json
+
+
+# ==================================================================
+# EDGE CASES (Validierung prüfen)
+# ==================================================================
+
+### Test 4.1: Fehler provozieren (Nicht existierenden Flug buchen)
+# Erwartet: HTTP 400 Bad Request
+POST {{host}}/bookings
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "flightId": 999
+}
