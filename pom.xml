@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.0.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.teko</groupId>
-    <artifactId>fligth-api</artifactId>
+    <artifactId>flight-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>fligth-api</name>
-    <description>fligth-api</description>
+    <name>flight-api</name>
+    <description>flight-api</description>
     <url/>
     <licenses>
         <license/>

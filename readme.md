@@ -1,4 +1,4 @@
-# Flight Booking System - Backend API
+# Flugbuchungssystem - Backend API
 
 Dieses Projekt beinhaltet das Backend für das Flugbuchungssystem. Es wurde mit Spring Boot und PostgreSQL umgesetzt.
 
@@ -17,7 +17,7 @@ Die Datenbankverbindung ist konfiguriert in `src/main/resources/application.prop
 
 **Schritt-für-Schritt Einrichtung:**
 1. Stelle sicher, dass der PostgreSQL-Server läuft.
-2. Führe das Skript `src/main/resources/Database_DDL.sql` auf dem PostgreSQL-Server aus.
+2. Führe das Skript `src/main/resources/FLIGHT_DB_DDL.sql` auf dem PostgreSQL-Server aus.
     - Erstellt die Datenbank `FLIGHT`
     - Erstellt die benötigten Tabellen (`userdata`, `flight`, `booking`) mit allen Relationen.
 3. Um die Datenbank mit umfangreichen Testdaten zu befüllen, führe das Skript `src/main/resources/extended_testdata.sql` aus.
@@ -33,5 +33,3 @@ Navigiere im Terminal ins Root-Verzeichnis des Projekts und führe folgenden Bef
 ```bash
   ./mvnw spring-boot:run
 ```
-
-## 4. Testing

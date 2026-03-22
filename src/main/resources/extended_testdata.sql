@@ -1,12 +1,5 @@
--- 1. Tabellen leeren und IDs zurücksetzen (Start mit sauberer DB)
 TRUNCATE TABLE booking, flight, userdata RESTART IDENTITY CASCADE;
 
--- 2. Test-User anlegen
-INSERT INTO userdata (name, email) VALUES
-                                       ('Felix Huber', 'felix.huber@example.com', '123456789'),
-                                       ('Anna Muster', 'anna.muster@example.com', '123456789');
-
--- 3. Test-Flüge anlegen (Grössere Auswahl für diverse Filter-Tests)
 INSERT INTO flight (departure_location, arrival_location, departure_date, departure_time, airline, price, available_tickets)
 VALUES
     -- Flüge von Zürich
