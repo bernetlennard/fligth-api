@@ -5,7 +5,7 @@ CREATE DATABASE "FLIGHT"
 CREATE TABLE userdata (
                           id BIGSERIAL PRIMARY KEY,
                           name VARCHAR(255),
-                          email VARCHAR(255),
+                          email VARCHAR(255) UNIQUE,
                           password VARCHAR(255)
 );
 
@@ -28,7 +28,6 @@ CREATE TABLE booking (
                          flight_id BIGINT NOT NULL,
                          booking_date TIMESTAMP,
 
-    -- Fremdschlüssel-Beziehungen (Foreign Keys)
                          CONSTRAINT fk_booking_user
                              FOREIGN KEY (user_id) REFERENCES userdata (id) ON DELETE CASCADE,
 

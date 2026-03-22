@@ -25,6 +25,11 @@ public class UserService {
     }
 
     public UserDto registerUser(UserRegistrationDto request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Email is already in use!");
+        }
+
+        // 2. User anlegen
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
@@ -46,4 +51,10 @@ public class UserService {
                 .map(userMapper::toDto)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    public User getUserByMail(String userEmail) {
+        return userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
 }

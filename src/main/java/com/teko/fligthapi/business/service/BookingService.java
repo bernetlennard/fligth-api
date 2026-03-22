@@ -23,33 +23,32 @@ public class BookingService {
     private final FlightRepository flightRepository;
     private final UserRepository userRepository;
     private final BookingMapper bookingMapper;
+    private final UserService userService;
 
     public BookingService(BookingRepository bookingRepository, FlightRepository flightRepository,
-                          UserRepository userRepository, BookingMapper bookingMapper) {
+                          UserRepository userRepository, BookingMapper bookingMapper, UserService userService) {
         this.bookingRepository = bookingRepository;
         this.flightRepository = flightRepository;
         this.userRepository = userRepository;
         this.bookingMapper = bookingMapper;
+        this.userService = userService;
     }
 
     @Transactional
-    public BookingResponseDto createBooking(BookingRequestDto request) {
+    public BookingResponseDto createBooking(BookingRequestDto request, String userEmail) {
+
         Flight flight = flightRepository.findById(request.getFlightId())
                 .orElseThrow(() -> new RuntimeException("Flight not found"));
 
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userService.getUserByMail(userEmail);
 
-        // Validierung: Verfügbare Tickets prüfen
         if (flight.getAvailableTickets() <= 0) {
             throw new RuntimeException("No tickets available for this flight");
         }
 
-        // Ticketanzahl reduzieren
         flight.setAvailableTickets(flight.getAvailableTickets() - 1);
         flightRepository.save(flight);
 
-        // Buchung erstellen
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setFlight(flight);

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flights")
-@CrossOrigin(origins = "*") // Wichtig für die Anbindung der SPA später
+@CrossOrigin(origins = "*")
 public class FlightController {
 
     private final FlightService flightService;

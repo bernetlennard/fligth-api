@@ -19,7 +19,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Neuen User registrieren
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserRegistrationDto request) {
         try {
@@ -30,13 +29,11 @@ public class UserController {
         }
     }
 
-    // Alle User abrufen (hilfreich fürs Testen)
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    // Einen bestimmten User abrufen
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         try {
