@@ -21,14 +21,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable) // CSRF für REST APIs deaktivieren
-                .cors(cors -> {}) // CORS aktivieren (wichtig für Frontend)
+        http.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> {
+                })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/users/register", "/flights").permitAll() // Diese Endpunkte sind öffentlich
-                        .anyRequest().authenticated() // Für alles andere (Buchungen) braucht man einen Token
+                        .requestMatchers("/auth/**", "/users/register", "/flights").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Keine Sessions, nur JWT
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -36,6 +36,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Passwort Hashing
+        return new BCryptPasswordEncoder();
     }
 }

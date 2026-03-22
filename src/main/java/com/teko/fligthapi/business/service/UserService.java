@@ -29,7 +29,6 @@ public class UserService {
             throw new RuntimeException("Email is already in use!");
         }
 
-        // 2. User anlegen
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());

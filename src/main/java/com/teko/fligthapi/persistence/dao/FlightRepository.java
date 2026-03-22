@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-    // Custom query to handle optional filters
     @Query("SELECT f FROM Flight f WHERE " +
             "(:departure IS NULL OR f.departureLocation = :departure) AND " +
             "(:arrival IS NULL OR f.arrivalLocation = :arrival) AND " +

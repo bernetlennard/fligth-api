@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "*") // Wichtig für die SPA
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;

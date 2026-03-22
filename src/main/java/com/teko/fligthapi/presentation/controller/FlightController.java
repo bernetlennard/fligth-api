@@ -21,7 +21,6 @@ public class FlightController {
         this.flightService = flightService;
     }
 
-    // Endpunkt für Filterparameter
     @GetMapping
     public ResponseEntity<List<FlightDto>> getFlights(
             @RequestParam(required = false) String departureLocation,

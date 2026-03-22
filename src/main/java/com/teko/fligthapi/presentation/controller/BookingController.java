@@ -40,7 +40,6 @@ public class BookingController {
         String userEmail = principal.getName();
         User user = userService.getUserByMail(userEmail);
 
-        // Buchungen für genau diesen User aus der DB holen
         List<BookingResponseDto> bookings = bookingService.getUserBookings(user.getId());
         return ResponseEntity.ok(bookings);
     }

@@ -13,7 +13,6 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setEmail(entity.getEmail());
-        // WICHTIG: Das Passwort mappen wir absichtlich nicht ins Rückgabe-DTO!
         return dto;
     }
 }
