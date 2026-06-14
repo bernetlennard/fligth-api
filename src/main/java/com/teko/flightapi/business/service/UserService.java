@@ -8,9 +8,6 @@ import com.teko.flightapi.presentation.dto.UserRegistrationDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class UserService {
 
@@ -38,15 +35,8 @@ public class UserService {
         return userMapper.toDto(savedUser);
     }
 
-    public List<UserDto> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    public UserDto getUserById(Long id) {
-        return userRepository.findById(id)
+    public UserDto getMe(String email) {
+        return userRepository.findByEmail(email)
                 .map(userMapper::toDto)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }

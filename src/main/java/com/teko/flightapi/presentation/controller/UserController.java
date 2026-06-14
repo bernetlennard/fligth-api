@@ -3,14 +3,19 @@ package com.teko.flightapi.presentation.controller;
 import com.teko.flightapi.business.service.UserService;
 import com.teko.flightapi.presentation.dto.UserDto;
 import com.teko.flightapi.presentation.dto.UserRegistrationDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "*")
+@Tag(name = "User", description = "Endpoints for user registration and profile management")
 public class UserController {
 
     private final UserService userService;
@@ -19,6 +24,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Register a new user", description = "Creates a new user account.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User registered successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request or error during registration")
+    })
     @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserRegistrationDto request) {
         try {
@@ -29,15 +39,16 @@ public class UserController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+    @Operation(summary = "Get current user's profile", description = "Retrieves the profile of the currently authenticated user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved user profile"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getMe(Principal principal) {
         try {
-            return ResponseEntity.ok(userService.getUserById(id));
+            UserDto userDto = userService.getMe(principal.getName());
+            return ResponseEntity.ok(userDto);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
